@@ -62,7 +62,6 @@ namespace pos_service.Controllers
 
             logger.LogInformation($"product: {product}");
 
-            // I tried this first: cache.Set(product.id,stream.ToArray());
             db.StringSet(product.id,json);
 
         }
