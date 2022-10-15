@@ -1,6 +1,6 @@
 using System;
 
-namespace pos_consumer
+namespace pos_publisher
 {
     public class WeatherForecast
     {
