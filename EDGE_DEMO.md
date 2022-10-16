@@ -129,3 +129,28 @@ Get Product data
 ```shell
 curl http://localhost:5001/api/product/1
 ```
+
+
+## RabbitMQ Testing Dockers
+
+
+One Broker
+
+```shell
+docker kill docker-rabbitmq-cluster-rabbitmq1-1
+```
+
+
+Publish message
+
+```shell
+docker kill rabbitmq2
+```
+
+Publish message (error)
+
+```shell
+docker start rabbitmq2
+```
+
+Publish message
