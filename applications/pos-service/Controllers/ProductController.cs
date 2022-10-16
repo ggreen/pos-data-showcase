@@ -1,7 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using pos_service.Domain;
 using System.Text.Json;
 using StackExchange.Redis;
 
@@ -25,19 +24,14 @@ namespace pos_service.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public Product Get(string id)
+        public String Get(string id)
         {
             logger.LogInformation($"get id: {id}");
 
             IDatabase db = cache.GetDatabase();
         
-            String productJson = db.StringGet(id);
+            return db.StringGet(id);
 
-            if(productJson == null)
-                return null;
-
-            var product = JsonSerializer.Deserialize<Product>(productJson);
-            return product;
         }
 
 
@@ -54,7 +48,8 @@ namespace pos_service.Controllers
         }
 
         [HttpPost]
-        public void SaveProduct(Product product)
+        [Route("{id}")]
+        public void SaveProduct(String id,[FromBody] String product)
         {
             IDatabase db = cache.GetDatabase();
             
@@ -62,7 +57,7 @@ namespace pos_service.Controllers
 
             logger.LogInformation($"product: {product}");
 
-            db.StringSet(product.id,json);
+            db.StringSet(id,json);
 
         }
 

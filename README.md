@@ -55,7 +55,7 @@ Start App
 
 ```shell
 cd applications/pos-service/
-dotnet run
+dotnet run --REDIS_CONNECTION_STRING="localhost:6379,localhost:6372,connectRetry=10"
 ```
 
 Post Product data 

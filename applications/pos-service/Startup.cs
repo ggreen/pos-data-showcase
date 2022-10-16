@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using Steeltoe.Connector.RabbitMQ;
 using Steeltoe.Connector.Redis;
+using Imani.Solutions.Core.API.Util;
 
 namespace pos_service
 {
@@ -22,6 +23,8 @@ namespace pos_service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var config = new ConfigSettings();
+
             services.AddRabbitMQConnection(Configuration);
             services.AddDistributedRedisCache(Configuration);
             services.AddControllers();
@@ -36,12 +39,7 @@ namespace pos_service
             services.AddMvc();
 
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
-            new ConfigurationOptions{
-                ConnectRetry = 10,
-                EndPoints = {
-                    "localhost:6379",
-                    "localhost:6372"}                
-            });
+                    config.GetProperty("REDIS_CONNECTION_STRING"));
 
             services.AddSingleton(redis);
         }

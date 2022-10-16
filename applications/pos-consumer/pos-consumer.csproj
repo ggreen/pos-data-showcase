@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Imani.Solutions.Core" Version="0.1.0" />
     <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.1" />
     <PackageReference Include="Steeltoe.Stream.StreamBase" Version="3.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.*" />

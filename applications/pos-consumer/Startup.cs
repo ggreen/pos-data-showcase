@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Net;
+using Imani.Solutions.Core.API.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,13 +27,12 @@ namespace pos_consumer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var config  = new ConfigSettings();
+            var connectionStrings = config.GetProperty("Redis_Connection_String");
+
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(
-            new ConfigurationOptions{
-                ConnectRetry = 10,
-                EndPoints = {
-                    "localhost:6379",
-                    "localhost:6372"}                
-            });
+                connectionStrings);
 
             services.AddSingleton(redis);
 

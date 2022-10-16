@@ -1,3 +1,5 @@
+
+
 # High Availability with GemFire for Redis Applications
 
 Test Case
@@ -47,24 +49,44 @@ Start Redis Server 2
 start server --name=redisServer2   --locators="127.0.0.1[10334],127.0.0.1[10434]"  --server-port=40402 --bind-address=127.0.0.1 --hostname-for-clients=127.0.0.1 --start-rest-api=true --http-service-bind-address=127.0.0.1 --http-service-port=0  --J=-Dgemfire-for-redis-port=6372 --J=-Dgemfire-for-redis-enabled=true --classpath=/Users/devtools/repositories/IMDG/gemfire/gemfire-for-redis-apps-1.0.1/lib/*
 ```
 
-# Starting Rest Application
+# Starting Service API
 
 Start App
 
 ```shell
 cd applications/pos-service/
-dotnet run --REDIS_CONNECTION_STRING="localhost:6379,localhost:6372,connectRetry=10"
+export REDIS_CONNECTION_STRING="localhost:6379,localhost:6372,connectRetry=10"
+dotnet run
 ```
 
-Post Product data 
+# Start Consumer
+
 
 ```shell
-curl -d '{"id":"sku1", "name":"PeanutButter"}' -H "Content-Type: application/json" -X POST http://localhost:5001/api/product"
+cd applications/pos-consumer
+export REDIS_CONNECTION_STRING="localhost:6379,localhost:6372,connectRetry=10"
+export SPRING_RABBITMQ_HOST="localhost"
+export SPRING_RABBITMQ_USERNAME="guest"
+export SPRING_RABBITMQ_PASSWORD="guest"
+
+dotnet run
 ```
+
+
+Start Source Publisher
+
+```
+cd applications/pos-publisher
+export SPRING_RABBITMQ_HOST="localhost"
+export SPRING_RABBITMQ_USERNAME="guest"
+export SPRING_RABBITMQ_PASSWORD="guest"
+```
+
+
 
 Get Product data
 ```shell
-curl http://localhost:5001/api/product/sku1
+curl http://localhost:5001/api/product/1
 ```
 
 # High Availability Testings
@@ -77,7 +99,7 @@ kill -9 `ps -ef | grep "start redisServer1" | grep -v "grep" | awk '{ print $2 }
 
 Get Product data
 ```shell
-curl http://localhost:5001/api/product/sku1
+curl http://localhost:5001/api/product/1
 ```
 
 
@@ -94,7 +116,7 @@ kill -9 `ps -ef | grep "start redisServer2" | grep -v "grep" | awk '{ print $2 }
 
 Get Product data
 ```shell
-curl http://localhost:5001/api/product/sku1
+curl http://localhost:5001/api/product/1
 ```
 
 
@@ -105,5 +127,5 @@ kill -9 `ps -ef | grep "start locator2" | grep -v "grep" | awk '{ print $2 }'`
 
 Get Product data
 ```shell
-curl http://localhost:5001/api/product/sku1
+curl http://localhost:5001/api/product/1
 ```

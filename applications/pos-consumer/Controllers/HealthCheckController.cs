@@ -12,24 +12,22 @@ namespace pos_consumer.Controllers
 {
     [ApiController]
     [Route("api/products")]
-    public class ProductController : ControllerBase
+    public class HealthCheckController : ControllerBase
     {
 
-        private readonly ILogger<ProductController> logger;
+        private readonly ILogger<HealthCheckController> logger;
         private readonly  ISource source;
 
-        public ProductController(ILogger<ProductController> logger, ISource source)
+        public HealthCheckController(ILogger<HealthCheckController> logger, ISource source)
         {
             this.logger = logger;
             this.source = source;
         }
 
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public IActionResult Get()
         {
-            logger.LogInformation("Getting product");
-           Product[] products = { new Product("id","name")};
-           return products;
+          return Ok();
         }
     }
 }

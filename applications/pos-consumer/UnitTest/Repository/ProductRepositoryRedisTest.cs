@@ -26,10 +26,14 @@ namespace UnitTest
             var subject = new ProductRepositoryRedis(cache.Object);
             cache.Setup(cache => cache.GetDatabase(It.IsAny<int>(),It.IsAny<object>())).Returns(db.Object);
 
-            Product product = new Product("id","name");
-            
+            double price = 1.3;
+
+            Product product = new Product("id","name",price,"details","ingredients", "directions",
+         "warnings",
+         "quantityAmount",
+        new Nutrition(3,3, 3, 3,3,3));
+
             subject.Save(product);
-            
         }
     }
 }

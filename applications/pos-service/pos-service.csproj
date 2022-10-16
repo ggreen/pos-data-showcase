@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Imani.Solutions.Core" Version="0.1.0" />
     <PackageReference Include="protobuf-net" Version="3.1.22" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.*" />
   </ItemGroup>

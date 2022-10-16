@@ -23,7 +23,11 @@ namespace pos_service.UnitTest.Consumer
         public void Given_Product_When_save_then_cache()
         {
             // Given
-            var product = new Product("id","name");
+            var product = new Product("id","name",3.434,"details","ingredients", "directions",
+         "warnings",
+         "quantityAmount",
+        new Nutrition(3,3, 3, 3,3,3));
+
 
             var subject = new ProductConsumer(repository.Object);
         
