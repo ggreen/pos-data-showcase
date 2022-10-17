@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using pos_publisher.Controllers;
-using Steeltoe.Stream.Extensions;
+// using Steeltoe.Stream.Extensions;
+using Imani.Solutions.RabbitMQ.API;
 
 namespace pos_publisher
 {
@@ -17,7 +18,7 @@ namespace pos_publisher
             //   .Build();
 
             CreateHostBuilder(args)
-            .AddStreamServices<ProductPublisherController>()
+            // .AddStreamServices<ProductPublisherController>()
             .Build().Run();
         }
 

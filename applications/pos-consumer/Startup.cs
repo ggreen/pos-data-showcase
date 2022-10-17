@@ -1,17 +1,15 @@
-using System.Collections.Generic;
-using System.Net;
 using Imani.Solutions.Core.API.Util;
+using Imani.Solutions.RabbitMQ.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using pos_consumer.Consumer;
 using pos_consumer.Repository;
 using pos_consumer.Repository.Redis;
 using StackExchange.Redis;
-using Steeltoe.Connector.RabbitMQ;
-using Steeltoe.Connector.Redis;
 
 namespace pos_consumer
 {
@@ -40,14 +38,23 @@ namespace pos_consumer
             
             services.AddSingleton(productRepository);
             
-            services.AddRabbitMQConnection(Configuration);
-            services.AddDistributedRedisCache(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "pos_consumer", Version = "v1" });
             });
 
+
+             var rabbit = Rabbit.Connect();
+             var consumer = rabbit.ConsumerBuilder()
+                        .SetExchange("pos.products")
+                        .UseQueueType(RabbitQueueType.quorum)
+                        .AddQueue("pos.products.consumer","#").Build();
+
+             var productConsumer = new ProductConsumer(productRepository);
+             consumer.RegisterReceiver(productConsumer.ReceiveMessage);
+
+              services.AddSingleton(productConsumer);
 
         }
 

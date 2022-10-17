@@ -13,8 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Imani.Solutions.Core" Version="0.1.0" />
-    <PackageReference Include="Steeltoe.Stream.Binder.RabbitMQ" Version="3.2.1" />
-    <PackageReference Include="Steeltoe.Stream.StreamBase" Version="3.2.1" />
+    <PackageReference Include="Imani.Solutions.RabbitMQ" Version="0.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.*" />
   </ItemGroup>
 <ItemGroup>
@@ -28,8 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="3.1.*" />
-    <PackageReference Include="RabbitMQ.Client" Version="5.1.*" />
-    <PackageReference Include="Steeltoe.Connector.ConnectorCore" Version="$(SteeltoeVersion)" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

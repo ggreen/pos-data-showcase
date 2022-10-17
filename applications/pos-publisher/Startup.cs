@@ -4,8 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Steeltoe.Connector.RabbitMQ;
-using Steeltoe.Stream.Extensions;
+using Imani.Solutions.RabbitMQ.API;
 
 namespace pos_publisher
 {
@@ -21,13 +20,20 @@ namespace pos_publisher
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRabbitMQConnection(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "pos_publisher", Version = "v1" });
             });
 
+            var rabbit = Rabbit.Connect();
+
+            var publisher = rabbit.PublishBuilder()
+                .SetExchange("pos.products")
+                .SetExchangeType(RabbitExchangeType.topic).Build();
+
+            services.AddSingleton(publisher);
+            
             // services.AddStreamConfiguration(Configuration);
             // services.AddStreamCoreServices(Configuration);
         }
