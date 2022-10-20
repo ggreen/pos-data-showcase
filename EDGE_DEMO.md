@@ -30,7 +30,6 @@ start locator --name=locator1 --port=10334 --locators="127.0.0.1[10334],127.0.0.
 Start Locator Server 2
 
 
-
 ```shell
 start locator --name=locator2 --port=10434 --locators="127.0.0.1[10334],127.0.0.1[10434]"  --bind-address=127.0.0.1 --hostname-for-clients=127.0.0.1  --http-service-port=0 --J="-Dgemfire.jmx-manager-port=1098"
 ```
@@ -46,7 +45,14 @@ start server --name=redisServer1   --locators="127.0.0.1[10334],127.0.0.1[10434]
 Start Redis Server 2
 
 ```shell
-start server --name=redisServer2   --locators="127.0.0.1[10334],127.0.0.1[10434]"  --server-port=40402 --bind-address=127.0.0.1 --hostname-for-clients=127.0.0.1 --start-rest-api=true --http-service-bind-address=127.0.0.1 --http-service-port=0  --J=-Dgemfire-for-redis-port=6372 --J=-Dgemfire-for-redis-enabled=true --classpath=/Users/devtools/repositories/IMDG/gemfire/gemfire-for-redis-apps-1.0.1/lib/*
+start server --name=redisServer2   --locators="127.0.0.1[10334],127.0.0.1[10434]"  --server-port=40402 --bind-address=127.0.0.1 --hostname-for-clients=127.0.0.1 --start-rest-api=true --http-service-bind-address=127.0.0.1 --http-service-port=0  --J=-Dgemfire-for-redis-port=6372 --J=-Dgemfire-for-redis-enabled=true  --classpath=/Users/devtools/repositories/IMDG/gemfire/gemfire-for-redis-apps-1.0.1/lib/*
+```
+
+Create Region
+
+```shell
+connect
+create region --name=REDIS_DATA --type=PARTITION_REDUNDANT_PERSISTENT_OVERFLOW  --redundant-copies=1 --total-num-buckets=128
 ```
 
 # Starting Service API
