@@ -18,8 +18,6 @@ echo "USER:" $ruser
 echo "PASWORD:" $rpwd
 
 
-k port-forward service/rabbitmq 6672:5672
-
 retail/retail
 
 

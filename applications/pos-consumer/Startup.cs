@@ -48,6 +48,7 @@ namespace pos_consumer
              var rabbit = Rabbit.Connect();
              var consumer = rabbit.ConsumerBuilder()
                         .SetExchange("pos.products")
+                        .SetExchangeType(RabbitExchangeType.topic)
                         .UseQueueType(RabbitQueueType.quorum)
                         .AddQueue("pos.products.consumer","#").Build();
 

@@ -48,13 +48,6 @@ Start Redis Server 2
 start server --name=redisServer2   --locators="127.0.0.1[10334],127.0.0.1[10434]"  --server-port=40402 --bind-address=127.0.0.1 --hostname-for-clients=127.0.0.1 --start-rest-api=true --http-service-bind-address=127.0.0.1 --http-service-port=0  --J=-Dgemfire-for-redis-port=6372 --J=-Dgemfire-for-redis-enabled=true  --classpath=/Users/devtools/repositories/IMDG/gemfire/gemfire-for-redis-apps-1.0.1/lib/*
 ```
 
-Create Region
-
-```shell
-connect
-create region --name=REDIS_DATA --type=PARTITION_REDUNDANT_PERSISTENT_OVERFLOW  --redundant-copies=1 --total-num-buckets=128
-```
-
 # Starting Service API
 
 Start App
@@ -71,9 +64,11 @@ dotnet run
 ```shell
 cd applications/pos-consumer
 export REDIS_CONNECTION_STRING="localhost:6379,localhost:6372,connectRetry=10"
-export SPRING_RABBITMQ_HOST="localhost"
-export SPRING_RABBITMQ_USERNAME="guest"
-export SPRING_RABBITMQ_PASSWORD="guest"
+export RABBIT_HOST="localhost"
+export RABBIT_USERNAME="guest"
+export RABBIT_PASSWORD="guest"
+export RABBIT_CLIENT_NAME="pos-consumer"
+export CRYPTION_KEY="SECRET"
 
 dotnet run
 ```

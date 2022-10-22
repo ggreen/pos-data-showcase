@@ -17,6 +17,9 @@ namespace pos_consumer.Consumer
         public ProductConsumer(IProductRepository repository)
         {
             this.repository = repository;
+
+            Console.WriteLine($"Debug: repository {repository}");
+
         }
 
         public void SaveProduct(Product product)
@@ -35,6 +38,7 @@ namespace pos_consumer.Consumer
 
                 var json = Encoding.UTF8.GetString(body.ToArray());
                 Console.WriteLine($"message {message}");
+                System.Diagnostics.Debug.WriteLine( $"message {message}" );
                 
                  var product = JsonSerializer.Deserialize<Product>(json);
 
