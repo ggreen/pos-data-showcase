@@ -30,7 +30,17 @@ namespace pos_service.Controllers
 
             IDatabase db = cache.GetDatabase();
         
-            return db.StringGet(id);
+            var json = "";
+            
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            json = db.StringGet(id);
+            // the code that you want to measure comes here
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+
+            logger.LogInformation($"Redis API read time: {elapsedMs} milliseconds");
+
+            return json;
 
         }
 
