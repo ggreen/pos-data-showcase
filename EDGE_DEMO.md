@@ -346,7 +346,7 @@ Open DC RabbitMQ Cluster
 
 
 ```
-open http://172.16.100.70:15672/#/
+open http://dc.k8.cluster:15672/#/
 ```
 
 Open Local (Edge) RabbitMQ active
@@ -402,6 +402,4 @@ k delete pod rabbitmq-server-1
 
 - Publish Product
 - Verify Passive DR RabbitMQ (local-edge)
-
-# SQL HA
 
