@@ -74,16 +74,56 @@ dotnet run
 ```
 
 
-Start Source Publisher
+Open Source Publisher in DC
 
-```
-cd applications/pos-publisher
-export SPRING_RABBITMQ_HOST="localhost"
-export SPRING_RABBITMQ_USERNAME="guest"
-export SPRING_RABBITMQ_PASSWORD="guest"
+```shell
+open http://172.16.100.73
 ```
 
+```properties
+exchange=pos.products
+```
 
+```json
+{ 
+    "id" : "1", 
+    "name" : "Peanut Butter", 
+    "price" : 2.76, 
+    "details" : "Complete satisfaction or your money back. Scan for more food information.", 
+    "ingredients" : "Roasted Peanuts, Contains 2% Or Less Of: Molasses, Fully Hydrogenated Vegetable Oils (Rapeseed And Soybean), Mono And Diglycerides, Salt.", 
+    "directions" : "Ready to eat.", 
+    "warnings" : " Allergens: Contains Peanuts.", 
+    "quantityAmount" : "28oz", 
+    "nutrition" :  {
+        "totalFatAmount" : 16,
+        "cholesterol" :0,
+        "sodium" : 140,
+        "totalCarbohydrate" : 8,
+        "sugars" : 3,
+        "protein" : 7
+    }}
+```
+
+
+```json
+{ 
+    "id" : "2", 
+    "name" : "Jelly", 
+    "price" : 3.16, 
+    "details" : "50 calories per 1 tbsp.", 
+    "ingredients" : "fruit juice, sugar, and pectin.", 
+    "directions" : "Refrigerate after opening.", 
+    "warnings" : "Button Will Pop Up When Seal Is Broken.", 
+    "quantityAmount" : "18oz", 
+    "nutrition" :  {
+        "totalFatAmount" : 16,
+        "cholesterol" :0,
+        "sodium" : 140,
+        "totalCarbohydrate" : 8,
+        "sugars" : 3,
+        "protein" : 7
+    }}
+```
 
 Get Product data
 ```shell
@@ -101,6 +141,10 @@ kill -9 `ps -ef | grep "start redisServer1" | grep -v "grep" | awk '{ print $2 }
 Get Product data
 ```shell
 curl http://localhost:5001/api/product/1
+```
+
+```shell
+curl http://localhost:5001/api/product/2
 ```
 
 
